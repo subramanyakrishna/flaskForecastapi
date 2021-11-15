@@ -1,7 +1,7 @@
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 from keras.models import load_model
-from flask import Flask, request
+from fastapi import FastAPI, Request
 
 
 forecastingModel = load_model('forecasting_model')
@@ -13,12 +13,12 @@ def getReverseMinMaxvalue(minMaxedValue, min, max):
 
 scaler = MinMaxScaler(feature_range=(0, 1))
 
-app = Flask(__name__)
+app = FastAPI()
 
 
-@app.route('/getForecast', methods=['POST'])
-def get_forcast():
-    request_body = request.get_json()
+@app.post('/getForecast')
+async def get_forcast(info: Request):
+    request_body = await info.json()
     tenDayaOutputFromApi = request_body['tenDaysOutputs']
     max_value = max(tenDayaOutputFromApi)
     min_value = min(tenDayaOutputFromApi)
