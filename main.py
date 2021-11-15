@@ -30,6 +30,11 @@ scaler = MinMaxScaler(feature_range=(0, 1))
 app = FastAPI()
 
 
+@app.get('/')
+async def ping():
+    return {"message": "forecastapi"}
+
+
 @app.post('/getForecast')
 async def get_forcast(info: Request):
     request_body = await info.json()
