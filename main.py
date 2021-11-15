@@ -1,4 +1,6 @@
+from fastapi.middleware.cors import CORSMiddleware
 from sklearn.preprocessing import MinMaxScaler
+from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 from keras.models import load_model
 from fastapi import FastAPI, Request
@@ -10,6 +12,21 @@ forecastingModel = load_model('forecasting_model')
 def getReverseMinMaxvalue(minMaxedValue, min, max):
     return minMaxedValue * (max-min) + min
 
+
+app = FastAPI()
+
+origins = [
+    "http://127.0.0.1:5000",
+    "https://solaroutputprediction.herokuapp.com/"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 scaler = MinMaxScaler(feature_range=(0, 1))
 
