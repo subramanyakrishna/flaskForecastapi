@@ -15,10 +15,7 @@ def getReverseMinMaxvalue(minMaxedValue, min, max):
 
 app = FastAPI()
 
-origins = [
-    "http://127.0.0.1:5000",
-    "https://solaroutputprediction.herokuapp.com/"
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
