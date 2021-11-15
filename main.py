@@ -15,7 +15,7 @@ def getReverseMinMaxvalue(minMaxedValue, min, max):
 
 app = FastAPI()
 
-origins = ["*"]
+origins = ['*']
 
 app.add_middleware(
     CORSMiddleware,
@@ -26,8 +26,6 @@ app.add_middleware(
 )
 
 scaler = MinMaxScaler(feature_range=(0, 1))
-
-app = FastAPI()
 
 
 @app.get('/')
